@@ -1,3 +1,4 @@
+# A simple project to tract Students performace
 # student_performance.py
 
 import pandas as pd
