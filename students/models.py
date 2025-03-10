@@ -1,10 +1,13 @@
-from django.db import models
+"""
+This module defines the database models for the Students app.
+"""
 
 # Create your models here.
 from django.db import models
 
 
 class Student(models.Model):
+    """Model representing a student and their academic records."""
     name = models.CharField(max_length=100)
     index_number = models.CharField(max_length=20, unique=True)
     mid_term = models.IntegerField()
@@ -19,4 +22,6 @@ class Student(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
+        """Returns a string representation of the student."""
         return self.name
+    
