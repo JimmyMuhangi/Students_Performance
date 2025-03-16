@@ -10,11 +10,14 @@ from .forms import StudentForm
 def welcome_view(request):
     return render(request, 'students/welcome.html')
 
-@api_view(["GET"])
+@api_view(['GET'])
 def get_students(request):
     students = Student.objects.all()
-    serializer = StudentSerializer(students, many=True)
-    return Response(serializer.data)
+    if request.accepted_renderer.format == 'html':
+        return render(request, 'students_table.html', {'students': students})
+    else:
+        serializer = StudentSerializer(students, many=True)
+        return Response(serializer.data)
 
 @api_view(["POST"])
 def add_student(request):
@@ -36,3 +39,8 @@ def student_form_view(request):
 
 def success_page(request):
     return render(request, 'students/success.html')
+
+def student_list(request):
+    students = Student.objects.all().order_by('id')
+    return render(request, 'students/student_list.html', {'students': students})
+
